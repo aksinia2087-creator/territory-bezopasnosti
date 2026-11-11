@@ -3,258 +3,279 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Территория безопасности</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Территория безопасности — Код профессионала</title>
 <style>
 *{box-sizing:border-box}
-body{
- margin:0;
- font-family:Arial,sans-serif;
- background:#171b20;
- color:#f4f4f4;
- min-height:100vh;
-}
-header{
- background:#222930;
- border-bottom:4px solid #f5b400;
- padding:20px;
- text-align:center;
-}
-.logo{font-size:13px;color:#f5b400;letter-spacing:4px}
-h1{font-size:clamp(25px,5vw,42px);margin:12px 0}
+body{margin:0;background:#171b20;color:#f4f4f4;font-family:Arial,sans-serif;min-height:100vh}
+header{background:#222930;border-bottom:5px solid #f5b400;text-align:center;padding:22px 12px}
+.logo{color:#f5b400;font-size:12px;letter-spacing:4px}
+h1{font-size:clamp(24px,5vw,40px);margin:12px 0}
 h2{color:#f5b400}
-main{max-width:850px;margin:35px auto;padding:20px}
-.panel{
- background:#252d35;
- border:1px solid #46515b;
- border-radius:12px;
- padding:25px;
- margin-bottom:20px;
- box-shadow:0 8px 25px #0005;
-}
-.warning{
- border-left:5px solid #f5b400;
- padding:12px;
- background:#303942;
- margin:18px 0;
-}
+main{max-width:900px;margin:25px auto;padding:15px}
+.panel{background:#252d35;border:1px solid #46515b;border-radius:12px;padding:25px;margin-bottom:20px;box-shadow:0 8px 25px #0005}
+.warning{background:#303942;border-left:5px solid #f5b400;padding:13px;margin:18px 0;line-height:1.5}
 label{display:block;margin:15px 0 7px}
-input,select{
- width:100%;
- padding:14px;
- border-radius:6px;
- border:1px solid #66717b;
- background:#151a1f;
- color:white;
- font-size:16px;
-}
-button{
- background:#f5b400;
- color:#171b20;
- border:0;
- border-radius:6px;
- padding:15px 22px;
- font-size:16px;
- font-weight:bold;
- cursor:pointer;
- width:100%;
- margin-top:18px;
-}
+input{width:100%;padding:14px;background:#151a1f;color:white;border:1px solid #66717b;border-radius:6px;font-size:16px}
+button{background:#f5b400;color:#171b20;border:0;border-radius:6px;padding:14px 18px;font-size:15px;font-weight:bold;cursor:pointer;margin-top:12px}
 button:hover{background:#ffd34e}
+button:disabled{opacity:.45;cursor:not-allowed}
 .secondary{background:#46515b;color:white}
-.hidden{display:none}
-.stats{
- display:flex;
- justify-content:space-between;
- gap:10px;
- flex-wrap:wrap;
-}
-.stat{
- background:#151a1f;
- padding:14px;
- border-radius:7px;
- flex:1;
- text-align:center;
-}
-.stat strong{display:block;color:#f5b400;font-size:23px}
-.small{color:#aab3bc;font-size:13px;line-height:1.6}
+.hidden{display:none!important}
+.small{font-size:13px;color:#aab3bc;line-height:1.6}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:20px 0}
+.stat{background:#151a1f;padding:13px;border-radius:7px;text-align:center}
+.stat strong{display:block;color:#f5b400;font-size:23px;margin-top:7px}
+.progress{height:10px;background:#111;border-radius:10px;overflow:hidden;margin:15px 0}
+.progress div{height:100%;width:0;background:#f5b400;transition:.3s}
+.zone{font-size:13px;color:#f5b400;letter-spacing:2px;text-transform:uppercase}
+.question{font-size:21px;line-height:1.4;margin:20px 0}
+.answers{display:grid;gap:10px}
+.answer{width:100%;text-align:left;background:#303942;color:white;border:1px solid #596571;margin:0;padding:15px;line-height:1.4}
+.answer:hover:not(:disabled){background:#46515b;border-color:#f5b400}
+.answer.correct{background:#17643e;border-color:#42d88b}
+.answer.wrong{background:#762d2d;border-color:#ff7777}
+.feedback{padding:15px;border-radius:7px;margin-top:15px;line-height:1.5}
+.good{background:#174a34}
+.bad{background:#612c2c}
+.topline{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.zone-card{padding:13px;background:#303942;border-radius:7px;margin:8px 0}
 footer{text-align:center;color:#78838d;padding:25px;font-size:12px}
-.stripe{
- height:8px;
- background:repeating-linear-gradient(135deg,#f5b400 0 18px,#171b20 18px 36px);
-}
+.stripe{height:8px;background:repeating-linear-gradient(135deg,#f5b400 0 18px,#171b20 18px 36px)}
+@media(max-width:550px){main{padding:10px}.panel{padding:17px}.stats{grid-template-columns:1fr 1fr}.stat:last-child{grid-column:span 2}.question{font-size:18px}}
 </style>
 </head>
 <body>
-
 <div class="stripe"></div>
 <header>
- <div class="logo">INDUSTRIAL SAFETY SYSTEM</div>
- <h1>ТЕРРИТОРИЯ БЕЗОПАСНОСТИ</h1>
- <div style="color:#f5b400;font-weight:bold;letter-spacing:2px">
- КОД ПРОФЕССИОНАЛА
- </div>
- <p class="small">Интеллектуальный квест по охране труда</p>
+<div class="logo">INDUSTRIAL SAFETY SYSTEM</div>
+<h1>ТЕРРИТОРИЯ БЕЗОПАСНОСТИ</h1>
+<div style="color:#f5b400;font-weight:bold;letter-spacing:2px">КОД ПРОФЕССИОНАЛА</div>
+<p class="small">Интеллектуальный квест по охране труда и технике безопасности</p>
 </header>
 
 <main>
-
 <section id="registration" class="panel">
- <h2>01 / РЕГИСТРАЦИЯ УЧАСТНИКА</h2>
- <div class="warning">
-  <strong>ВНИМАНИЕ!</strong><br>
-  Для получения допуска к промышленному объекту
-  необходимо пройти проверку знаний по охране труда.
- </div>
-
- <label for="fullname">Фамилия, имя, отчество</label>
- <input id="fullname" type="text"
- placeholder="Введите ФИО" maxlength="100">
-
- <label for="group">Учебная группа</label>
- <input id="group" type="text"
- placeholder="Например, ГЭС-24" maxlength="30">
-
- <button onclick="register()">ПОЛУЧИТЬ ДОПУСК</button>
- <p class="small">Заполните оба поля для начала игры.</p>
+<h2>01 / РЕГИСТРАЦИЯ УЧАСТНИКА</h2>
+<div class="warning"><b>ВНИМАНИЕ!</b><br>Для получения допуска к промышленному объекту необходимо пройти проверку знаний по охране труда.</div>
+<label for="fullname">Фамилия, имя, отчество</label>
+<input id="fullname" maxlength="100" placeholder="Введите ФИО">
+<label for="group">Учебная группа</label>
+<input id="group" maxlength="30" placeholder="Например, ГЭС-24">
+<button style="width:100%" onclick="register()">ПОЛУЧИТЬ ДОПУСК</button>
+<p class="small">Заполните оба поля для начала игры.</p>
 </section>
 
 <section id="rules" class="panel hidden">
- <h2>02 / ИНСТРУКТАЖ УЧАСТНИКА</h2>
- <p>Участник: <strong id="playerName"></strong></p>
- <p>Группа: <strong id="playerGroup"></strong></p>
-
- <div class="warning">
-  Ваша задача — пройти все контрольные зоны и подтвердить
-  знания требований безопасности.
- </div>
-
- <h3>Правила прохождения</h3>
- <ul>
-  <li>Продолжительность — 30 минут.</li>
-  <li>Участнику предоставляется 3 жизни.</li>
-  <li>За неправильный ответ снимается одна жизнь.</li>
-  <li>За правильные ответы начисляются баллы.</li>
-  <li>При потере всех жизней игра завершается.</li>
-  <li>В конце формируется итоговый результат.</li>
- </ul>
-
- <button onclick="startGame()">НАЧАТЬ МИССИЮ</button>
- <button class="secondary" onclick="back()">НАЗАД</button>
+<h2>02 / ИНСТРУКТАЖ УЧАСТНИКА</h2>
+<p>Участник: <b id="playerName"></b></p>
+<p>Группа: <b id="playerGroup"></b></p>
+<div class="warning">Ваша миссия — пройти шесть контрольных зон и подтвердить знания безопасного труда.</div>
+<h3>Правила прохождения</h3>
+<ul>
+<li>30 вопросов в шести тематических зонах.</li>
+<li>Продолжительность — 30 минут.</li>
+<li>Участнику предоставляется 3 жизни.</li>
+<li>За неправильный ответ снимается одна жизнь.</li>
+<li>За правильные ответы начисляются баллы.</li>
+<li>После ответа появится пояснение.</li>
+<li>При потере всех жизней игра завершится.</li>
+</ul>
+<div class="zone-card">Лёгкий уровень — 2 балла за ответ.</div>
+<div class="zone-card">Средний уровень — 3 балла за ответ.</div>
+<div class="zone-card">Сложный уровень — 5 баллов за ответ.</div>
+<button style="width:100%" onclick="startGame()">НАЧАТЬ МИССИЮ</button>
 </section>
 
 <section id="game" class="panel hidden">
- <h2>03 / ДОПУСК НА ПРЕДПРИЯТИЕ</h2>
-
- <div class="stats">
-  <div class="stat">
-   <span class="small">ОСТАЛОСЬ ВРЕМЕНИ</span>
-   <strong id="timer">30:00</strong>
-  </div>
-  <div class="stat">
-   <span class="small">ЖИЗНИ</span>
-   <strong id="lives">❤️ ❤️ ❤️</strong>
-  </div>
-  <div class="stat">
-   <span class="small">БАЛЛЫ</span>
-   <strong id="score">0</strong>
-  </div>
- </div>
-
- <div class="warning">
-  <strong>МИССИЯ АКТИВИРОВАНА</strong><br>
-  Регистрация пройдена. Вы готовы к проверке знаний.
- </div>
-
- <p>Участник: <strong id="gameName"></strong></p>
- <p>Группа: <strong id="gameGroup"></strong></p>
-
- <h3>Система допуска</h3>
- <p>Стартовая регистрация завершена успешно.</p>
- <p class="small">
-  Следующий этап разработки — подключение шести игровых зон,
-  заданий, системы начисления баллов и автоматической проверки.
- </p>
-
- <button class="secondary" onclick="location.reload()">
-  ВЕРНУТЬСЯ К РЕГИСТРАЦИИ
- </button>
+<div class="topline">
+<div class="zone" id="zoneName">КОНТРОЛЬНАЯ ЗОНА</div>
+<div id="levelName" class="zone">УРОВЕНЬ</div>
+</div>
+<div class="stats">
+<div class="stat">ВРЕМЯ<strong id="timer">30:00</strong></div>
+<div class="stat">ЖИЗНИ<strong id="lives">❤️ ❤️ ❤️</strong></div>
+<div class="stat">БАЛЛЫ<strong id="score">0</strong></div>
+</div>
+<div class="progress"><div id="progressBar"></div></div>
+<div class="topline small">
+<span id="questionNumber">Вопрос 1 из 30</span>
+<span id="zoneProgress">Зона 1 из 6</span>
+</div>
+<h2 class="question" id="questionText"></h2>
+<div class="answers" id="answers"></div>
+<div id="feedback" class="feedback hidden"></div>
+<button id="nextBtn" class="hidden" style="width:100%" onclick="nextQuestion()">СЛЕДУЮЩЕЕ ЗАДАНИЕ →</button>
 </section>
 
 <section id="finished" class="panel hidden">
- <h2>МИССИЯ ЗАВЕРШЕНА</h2>
- <p id="finishMessage"></p>
- <button onclick="location.reload()">НАЧАТЬ ЗАНОВО</button>
+<h2>МИССИЯ ЗАВЕРШЕНА</h2>
+<div class="warning" id="finishStatus"></div>
+<div class="stats">
+<div class="stat">ВАШ РЕЗУЛЬТАТ<strong id="finalScore">0</strong></div>
+<div class="stat">ПРАВИЛЬНЫХ<strong id="finalCorrect">0</strong></div>
+<div class="stat">ОСТАЛОСЬ ЖИЗНЕЙ<strong id="finalLives">0</strong></div>
+</div>
+<p>Участник: <b id="finalName"></b></p>
+<p>Группа: <b id="finalGroup"></b></p>
+<p>Время прохождения: <b id="finalTime"></b></p>
+<h3 id="finalRank" style="color:#f5b400"></h3>
+<p class="small">Результат показан локально. Для публикации общего рейтинга потребуется подключение облачной базы данных.</p>
+<button style="width:100%" onclick="location.reload()">ИГРАТЬ ЕЩЁ РАЗ</button>
 </section>
-
 </main>
-
-<footer>
- ТЕРРИТОРИЯ БЕЗОПАСНОСТИ · ОБРАЗОВАТЕЛЬНЫЙ ПРОЕКТ
-</footer>
+<footer>ТЕРРИТОРИЯ БЕЗОПАСНОСТИ · ОБРАЗОВАТЕЛЬНЫЙ ПРОЕКТ</footer>
 
 <script>
-let player = "";
-let group = "";
-let lives = 3;
-let score = 0;
-let seconds = 1800;
-let timerInterval = null;
+const questions=[
+{z:"Опасность рядом",l:1,p:2,q:"Что понимают под охраной труда?",a:["Только выдачу спецодежды","Систему сохранения жизни и здоровья работников в процессе трудовой деятельности","Только проведение инструктажа","Только контроль дисциплины"],c:1,e:"Охрана труда включает правовые, организационные, технические, санитарные и профилактические меры по сохранению жизни и здоровья работников."},
+{z:"Опасность рядом",l:1,p:2,q:"Что относится к опасным производственным факторам?",a:["Яркое освещение","Движущиеся части оборудования","Комфортная температура","Чистое рабочее место"],c:1,e:"Движущиеся механизмы могут привести к травмированию работника."},
+{z:"Опасность рядом",l:1,p:2,q:"Что необходимо сделать перед началом работы?",a:["Сразу включить оборудование","Проверить рабочее место, оборудование и средства защиты","Снять спецодежду","Начать работу без проверки"],c:1,e:"Перед началом работы необходимо убедиться в безопасности рабочего места и исправности оборудования."},
+{z:"Опасность рядом",l:1,p:2,q:"Как следует поступить при обнаружении неисправности оборудования?",a:["Продолжить работу","Попытаться скрыть неисправность","Прекратить работу и сообщить руководителю","Попросить товарища работать вместо себя"],c:2,e:"Неисправное оборудование может стать причиной травмы или аварии. О неисправности необходимо сообщить ответственному лицу."},
+{z:"Опасность рядом",l:1,p:2,q:"Что обозначает предупреждающий знак безопасности?",a:["Указывает на возможную опасность","Разрешает любые действия","Обозначает место отдыха","Указывает направление движения транспорта"],c:0,e:"Предупреждающие знаки информируют о потенциальной опасности и необходимости соблюдать осторожность."},
+
+{z:"Средства защиты",l:1,p:2,q:"Для чего применяют защитную каску?",a:["Для защиты от шума","Для защиты головы от механических воздействий","Для защиты органов дыхания","Для защиты рук"],c:1,e:"Каска предназначена для защиты головы от ударов и других опасных воздействий."},
+{z:"Средства защиты",l:1,p:2,q:"Какой СИЗ защищает глаза и лицо сварщика от излучения дуги?",a:["Хлопчатобумажные перчатки","Сварочная маска со светофильтром","Защитная обувь","Беруши"],c:1,e:"Сварочная маска со светофильтром защищает глаза и лицо от излучения дуги и брызг расплавленного металла."},
+{z:"Средства защиты",l:1,p:2,q:"Для чего предназначены защитные перчатки?",a:["Для украшения спецодежды","Для защиты рук от опасных воздействий","Для защиты органов слуха","Для улучшения освещения"],c:1,e:"Перчатки выбирают с учётом характера выполняемой работы и возможных опасностей."},
+{z:"Средства защиты",l:1,p:2,q:"Что относится к средствам индивидуальной защиты?",a:["Вентиляционная система цеха","Ограждение станка","Защитные очки","Сигнальная разметка пола"],c:2,e:"Защитные очки являются СИЗ. Вентиляция и ограждения относятся к коллективным средствам защиты."},
+{z:"Средства защиты",l:1,p:2,q:"Что следует сделать с повреждённым средством индивидуальной защиты?",a:["Продолжить его использование","Отремонтировать самостоятельно любым способом","Заменить или сообщить ответственному лицу","Передать другому работнику"],c:2,e:"Повреждённые СИЗ не обеспечивают необходимую защиту и должны быть заменены."},
+
+{z:"Электробезопасность",l:2,p:3,q:"Что необходимо сделать при обнаружении повреждённой изоляции электрического кабеля?",a:["Продолжить работу","Не прикасаться, прекратить работу и сообщить ответственному лицу","Заклеить кабель бумагой","Полить кабель водой"],c:1,e:"Повреждённая изоляция создаёт опасность поражения электрическим током. Необходимо прекратить работу и сообщить о неисправности."},
+{z:"Электробезопасность",l:2,p:3,q:"Как следует поступить при поражении человека электрическим током?",a:["Немедленно схватить пострадавшего руками","Сначала безопасно отключить источник электричества и вызвать помощь","Облить пострадавшего водой","Оставить пострадавшего одного"],c:1,e:"Нельзя касаться пострадавшего, пока он находится под воздействием электрического тока. Сначала необходимо безопасно прекратить воздействие тока и вызвать экстренную помощь."},
+{z:"Электробезопасность",l:2,p:3,q:"Кто имеет право выполнять ремонт электрооборудования?",a:["Любой студент","Любой работник цеха","Квалифицированный и допущенный к такой работе персонал","Посетитель мастерской"],c:2,e:"Работы с электрооборудованием выполняет персонал, имеющий соответствующую подготовку и допуск."},
+{z:"Электробезопасность",l:2,p:3,q:"Почему нельзя работать с электрооборудованием мокрыми руками?",a:["Ухудшается видимость","Повышается риск поражения электрическим током","Увеличивается масса оборудования","Снижается температура воздуха"],c:1,e:"Влага снижает сопротивление кожи и повышает опасность поражения электрическим током."},
+{z:"Электробезопасность",l:2,p:3,q:"Что необходимо сделать перед очисткой или обслуживанием оборудования?",a:["Отключить его и исключить случайный пуск согласно установленной процедуре","Увеличить мощность","Попросить коллегу включить оборудование","Начать очистку во время работы"],c:0,e:"Перед обслуживанием необходимо безопасно отключить оборудование и предотвратить его случайный запуск."},
+
+{z:"Пожарная тревога",l:2,p:3,q:"Какой номер единой службы экстренной помощи действует в Казахстане?",a:["101","102","112","104"],c:2,e:"112 — единый номер экстренной помощи. 101 — пожарная служба."},
+{z:"Пожарная тревога",l:2,p:3,q:"Что нужно сделать при обнаружении возгорания?",a:["Скрыть происшествие","Сообщить о пожаре, вызвать помощь и действовать по плану эвакуации","Продолжить работу","Открыть все двери и окна без оценки ситуации"],c:1,e:"Необходимо незамедлительно сообщить о пожаре, вызвать помощь и безопасно эвакуироваться."},
+{z:"Пожарная тревога",l:2,p:3,q:"Как следует перемещаться при сильном задымлении?",a:["Бежать в полный рост","Передвигаться как можно ближе к полу, прикрыв органы дыхания","Использовать лифт","Оставаться возле очага"],c:1,e:"При задымлении концентрация дыма и горячих газов у пола обычно ниже. Следует двигаться пригнувшись, используя безопасный маршрут."},
+{z:"Пожарная тревога",l:2,p:3,q:"Можно ли тушить водой электрооборудование, находящееся под напряжением?",a:["Да, всегда","Нет, это опасно","Да, если воды немного","Да, если использовать металлическое ведро"],c:1,e:"Вода может проводить электрический ток. Для тушения электрооборудования под напряжением применяют только подходящие средства с учётом их маркировки и инструкции."},
+{z:"Пожарная тревога",l:2,p:3,q:"Что необходимо сделать после сигнала эвакуации?",a:["Забрать все личные вещи","Следовать по установленному маршруту к месту сбора","Вернуться за телефоном","Спрятаться в помещении"],c:1,e:"При эвакуации необходимо сохранять спокойствие, следовать указателям и прибыть в установленное место сбора."},
+
+{z:"Аварийная ситуация",l:3,p:5,q:"Человек получил ожог. Какое действие является правильным в первую очередь?",a:["Нанести масло","Охлаждать место ожога прохладной проточной водой около 20 минут, если это возможно","Вскрыть пузыри","Приложить лёд непосредственно к ожогу"],c:1,e:"При термическом ожоге охлаждают поражённое место прохладной проточной водой около 20 минут. Не используют масло и не вскрывают пузыри."},
+{z:"Аварийная ситуация",l:3,p:5,q:"Что следует сделать при обнаружении пострадавшего без сознания?",a:["Проверить безопасность места, оценить реакцию и дыхание, вызвать 112 или 103","Немедленно дать воду","Посадить пострадавшего","Оставить его без помощи"],c:0,e:"Сначала убедитесь в безопасности места, оцените сознание и дыхание, вызовите экстренную помощь. Дальнейшие действия зависят от состояния пострадавшего."},
+{z:"Аварийная ситуация",l:3,p:5,q:"Как действовать при сильном наружном кровотечении?",a:["Наложить прямое давление на рану и вызвать помощь","Промыть рану растворителем","Оставить рану открытой","Согреть повреждённую область"],c:0,e:"При сильном кровотечении необходимо как можно быстрее остановить его прямым давлением и вызвать экстренную помощь. При необходимости применяют жгут по правилам первой помощи."},
+{z:"Аварийная ситуация",l:3,p:5,q:"Что необходимо сделать после несчастного случая на производстве?",a:["Скрыть происшествие","Сообщить руководителю и обеспечить оказание помощи пострадавшему","Продолжить работу как обычно","Удалить следы происшествия"],c:1,e:"О происшествии необходимо незамедлительно сообщить руководителю, организовать помощь и действовать по установленному порядку расследования."},
+{z:"Аварийная ситуация",l:3,p:5,q:"Как правильно действовать при подозрении на перелом конечности?",a:["Самостоятельно вправить кость","Обеспечить неподвижность повреждённой области и вызвать медицинскую помощь","Заставить пострадавшего двигать конечностью","Сильно массировать место травмы"],c:1,e:"При подозрении на перелом нужно ограничить движение повреждённой области, не пытаться вправлять кость и вызвать медицинскую помощь."},
+
+{z:"Финальный допуск",l:3,p:5,q:"Сварщик заметил отсутствие исправного обратного сварочного кабеля. Как поступить?",a:["Использовать случайный металлический предмет","Начать сварку на минимальном токе","Не начинать работу до восстановления безопасного подключения","Попросить коллегу придерживать кабель"],c:2,e:"Сварочное оборудование должно быть подключено по установленной схеме с исправными кабелями. Работа с неисправным подключением недопустима."},
+{z:"Финальный допуск",l:3,p:5,q:"Во время сварки рядом с рабочим местом обнаружены горючие материалы. Что делать?",a:["Продолжать сварку","Обеспечить удаление горючих материалов или защиту зоны и выполнить требования пожарной безопасности до начала работы","Накрыть их бумагой","Не обращать внимания"],c:1,e:"До начала огневых работ необходимо подготовить рабочее место и исключить возможность воспламенения горючих материалов."},
+{z:"Финальный допуск",l:3,p:5,q:"Почему нельзя смотреть на сварочную дугу без защиты?",a:["Можно испортить одежду","Излучение дуги может повредить глаза и кожу","Ухудшается слух","Повышается температура помещения"],c:1,e:"Излучение сварочной дуги опасно для глаз и кожи. Необходимо применять соответствующие средства защиты."},
+{z:"Финальный допуск",l:3,p:5,q:"В рабочей зоне недостаточно вентиляции, образуются сварочные аэрозоли. Как поступить?",a:["Продолжать работу без изменений","Организовать требуемую вентиляцию и удаление сварочных аэрозолей до безопасного выполнения работы","Снять маску","Закрыть вентиляционные отверстия"],c:1,e:"Сварочные аэрозоли опасны для органов дыхания. Необходимы эффективная вентиляция и предусмотренные средства защиты."},
+{z:"Финальный допуск",l:3,p:5,q:"Какой главный принцип безопасного поведения на производстве?",a:["Выполнять работу быстрее любой ценой","Соблюдать требования безопасности и не приступать к работе при наличии опасных условий","Полагаться только на опыт","Игнорировать инструкции при спешке"],c:1,e:"Безопасность имеет приоритет перед скоростью выполнения работы. Опасные условия необходимо устранить до начала работы."}
+];
+
+const zones=[
+"Опасность рядом","Средства защиты","Электробезопасность",
+"Пожарная тревога","Аварийная ситуация","Финальный допуск"
+];
+let player="",group="",index=0,lives=3,score=0,correct=0;
+let seconds=1800,timerInterval=null,answered=false,finished=false;
 
 function show(id){
- document.querySelectorAll("main section")
- .forEach(s=>s.classList.add("hidden"));
+ document.querySelectorAll("main section").forEach(s=>s.classList.add("hidden"));
  document.getElementById(id).classList.remove("hidden");
 }
-
 function register(){
  player=document.getElementById("fullname").value.trim();
  group=document.getElementById("group").value.trim();
-
- if(!player || !group){
-  alert("Заполните ФИО и учебную группу!");
-  return;
- }
-
+ if(!player||!group){alert("Заполните ФИО и учебную группу!");return}
  document.getElementById("playerName").textContent=player;
  document.getElementById("playerGroup").textContent=group;
  show("rules");
 }
-
-function back(){
- show("registration");
-}
-
 function startGame(){
- document.getElementById("gameName").textContent=player;
- document.getElementById("gameGroup").textContent=group;
- show("game");
- startTimer();
+ index=0;lives=3;score=0;correct=0;seconds=1800;finished=false;
+ show("game");renderQuestion();startTimer();
 }
-
 function startTimer(){
  clearInterval(timerInterval);
  timerInterval=setInterval(()=>{
   seconds--;
-  let min=Math.floor(seconds/60);
-  let sec=seconds%60;
+  let m=Math.floor(seconds/60),s=seconds%60;
   document.getElementById("timer").textContent=
-   String(min).padStart(2,"0")+":"+
-   String(sec).padStart(2,"0");
-
-  if(seconds<=0){
-   finish("Время прохождения истекло.");
-  }
+  String(m).padStart(2,"0")+":"+String(s).padStart(2,"0");
+  if(seconds<=0)finish("Время прохождения истекло.");
  },1000);
 }
-
+function renderQuestion(){
+ answered=false;
+ const q=questions[index];
+ document.getElementById("zoneName").textContent=q.z;
+ document.getElementById("levelName").textContent=
+ q.l===1?"ЛЁГКИЙ УРОВЕНЬ":q.l===2?"СРЕДНИЙ УРОВЕНЬ":"СЛОЖНЫЙ УРОВЕНЬ";
+ document.getElementById("questionNumber").textContent=
+ "Вопрос "+(index+1)+" из "+questions.length;
+ document.getElementById("zoneProgress").textContent=
+ "Зона "+(Math.floor(index/5)+1)+" из 6";
+ document.getElementById("progressBar").style.width=
+ (index/questions.length*100)+"%";
+ document.getElementById("questionText").textContent=q.q;
+ document.getElementById("score").textContent=score;
+ document.getElementById("lives").textContent="❤️ ".repeat(lives)||"Нет жизней";
+ document.getElementById("feedback").className="feedback hidden";
+ document.getElementById("nextBtn").classList.add("hidden");
+ const box=document.getElementById("answers");box.innerHTML="";
+ q.a.forEach((answer,i)=>{
+  const b=document.createElement("button");
+  b.className="answer";
+  b.textContent=String.fromCharCode(65+i)+". "+answer;
+  b.onclick=()=>checkAnswer(i,b);
+  box.appendChild(b);
+ });
+}
+function checkAnswer(choice,button){
+ if(answered||finished)return;
+ answered=true;
+ const q=questions[index];
+ const buttons=document.querySelectorAll(".answer");
+ buttons.forEach((b,i)=>{
+  b.disabled=true;
+  if(i===q.c)b.classList.add("correct");
+ });
+ const feedback=document.getElementById("feedback");
+ if(choice===q.c){
+  score+=q.p;correct++;
+  feedback.className="feedback good";
+  feedback.innerHTML="<b>✓ ПРАВИЛЬНО! +"+q.p+" балла(ов)</b><br>"+q.e;
+ }else{
+  lives--;
+  button.classList.add("wrong");
+  feedback.className="feedback bad";
+  feedback.innerHTML="<b>✕ НЕВЕРНО! Потеряна одна жизнь.</b><br>"+q.e;
+ }
+ document.getElementById("score").textContent=score;
+ document.getElementById("lives").textContent="❤️ ".repeat(lives)||"Нет жизней";
+ document.getElementById("nextBtn").classList.remove("hidden");
+ document.getElementById("nextBtn").textContent=
+ lives===0?"ЗАВЕРШИТЬ ИГРУ":index===questions.length-1?"ЗАВЕРШИТЬ МИССИЮ":"СЛЕДУЮЩЕЕ ЗАДАНИЕ →";
+}
+function nextQuestion(){
+ if(!answered)return;
+ if(lives===0){finish("Все жизни закончились. Миссия завершена.");return}
+ if(index===questions.length-1){finish("Вы прошли все контрольные зоны!");return}
+ index++;renderQuestion();
+}
 function finish(message){
- clearInterval(timerInterval);
- document.getElementById("finishMessage").textContent=
-  message+" Ваш результат: "+score+" баллов.";
+ if(finished)return;
+ finished=true;clearInterval(timerInterval);
+ document.getElementById("progressBar").style.width="100%";
+ document.getElementById("finishStatus").textContent=message;
+ document.getElementById("finalScore").textContent=score+" / 100";
+ document.getElementById("finalCorrect").textContent=correct+" / 30";
+ document.getElementById("finalLives").textContent=lives;
+ document.getElementById("finalName").textContent=player;
+ document.getElementById("finalGroup").textContent=group;
+ let elapsed=1800-seconds;
+ document.getElementById("finalTime").textContent=
+ Math.floor(elapsed/60)+" мин. "+(elapsed%60)+" сек.";
+ let rank=score>=90?"ЭКСПЕРТ БЕЗОПАСНОСТИ":
+ score>=75?"ПРОФЕССИОНАЛ":
+ score>=60?"УВЕРЕННЫЙ УЧАСТНИК":
+ "ТРЕБУЕТСЯ ПОВТОРНАЯ ПОДГОТОВКА";
+ document.getElementById("finalRank").textContent=rank;
  show("finished");
 }
 </script>
 </body>
 </html>
-
