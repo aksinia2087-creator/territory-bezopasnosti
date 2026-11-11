@@ -1,1 +1,260 @@
 
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Территория безопасности</title>
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;
+ font-family:Arial,sans-serif;
+ background:#171b20;
+ color:#f4f4f4;
+ min-height:100vh;
+}
+header{
+ background:#222930;
+ border-bottom:4px solid #f5b400;
+ padding:20px;
+ text-align:center;
+}
+.logo{font-size:13px;color:#f5b400;letter-spacing:4px}
+h1{font-size:clamp(25px,5vw,42px);margin:12px 0}
+h2{color:#f5b400}
+main{max-width:850px;margin:35px auto;padding:20px}
+.panel{
+ background:#252d35;
+ border:1px solid #46515b;
+ border-radius:12px;
+ padding:25px;
+ margin-bottom:20px;
+ box-shadow:0 8px 25px #0005;
+}
+.warning{
+ border-left:5px solid #f5b400;
+ padding:12px;
+ background:#303942;
+ margin:18px 0;
+}
+label{display:block;margin:15px 0 7px}
+input,select{
+ width:100%;
+ padding:14px;
+ border-radius:6px;
+ border:1px solid #66717b;
+ background:#151a1f;
+ color:white;
+ font-size:16px;
+}
+button{
+ background:#f5b400;
+ color:#171b20;
+ border:0;
+ border-radius:6px;
+ padding:15px 22px;
+ font-size:16px;
+ font-weight:bold;
+ cursor:pointer;
+ width:100%;
+ margin-top:18px;
+}
+button:hover{background:#ffd34e}
+.secondary{background:#46515b;color:white}
+.hidden{display:none}
+.stats{
+ display:flex;
+ justify-content:space-between;
+ gap:10px;
+ flex-wrap:wrap;
+}
+.stat{
+ background:#151a1f;
+ padding:14px;
+ border-radius:7px;
+ flex:1;
+ text-align:center;
+}
+.stat strong{display:block;color:#f5b400;font-size:23px}
+.small{color:#aab3bc;font-size:13px;line-height:1.6}
+footer{text-align:center;color:#78838d;padding:25px;font-size:12px}
+.stripe{
+ height:8px;
+ background:repeating-linear-gradient(135deg,#f5b400 0 18px,#171b20 18px 36px);
+}
+</style>
+</head>
+<body>
+
+<div class="stripe"></div>
+<header>
+ <div class="logo">INDUSTRIAL SAFETY SYSTEM</div>
+ <h1>ТЕРРИТОРИЯ БЕЗОПАСНОСТИ</h1>
+ <div style="color:#f5b400;font-weight:bold;letter-spacing:2px">
+ КОД ПРОФЕССИОНАЛА
+ </div>
+ <p class="small">Интеллектуальный квест по охране труда</p>
+</header>
+
+<main>
+
+<section id="registration" class="panel">
+ <h2>01 / РЕГИСТРАЦИЯ УЧАСТНИКА</h2>
+ <div class="warning">
+  <strong>ВНИМАНИЕ!</strong><br>
+  Для получения допуска к промышленному объекту
+  необходимо пройти проверку знаний по охране труда.
+ </div>
+
+ <label for="fullname">Фамилия, имя, отчество</label>
+ <input id="fullname" type="text"
+ placeholder="Введите ФИО" maxlength="100">
+
+ <label for="group">Учебная группа</label>
+ <input id="group" type="text"
+ placeholder="Например, ГЭС-24" maxlength="30">
+
+ <button onclick="register()">ПОЛУЧИТЬ ДОПУСК</button>
+ <p class="small">Заполните оба поля для начала игры.</p>
+</section>
+
+<section id="rules" class="panel hidden">
+ <h2>02 / ИНСТРУКТАЖ УЧАСТНИКА</h2>
+ <p>Участник: <strong id="playerName"></strong></p>
+ <p>Группа: <strong id="playerGroup"></strong></p>
+
+ <div class="warning">
+  Ваша задача — пройти все контрольные зоны и подтвердить
+  знания требований безопасности.
+ </div>
+
+ <h3>Правила прохождения</h3>
+ <ul>
+  <li>Продолжительность — 30 минут.</li>
+  <li>Участнику предоставляется 3 жизни.</li>
+  <li>За неправильный ответ снимается одна жизнь.</li>
+  <li>За правильные ответы начисляются баллы.</li>
+  <li>При потере всех жизней игра завершается.</li>
+  <li>В конце формируется итоговый результат.</li>
+ </ul>
+
+ <button onclick="startGame()">НАЧАТЬ МИССИЮ</button>
+ <button class="secondary" onclick="back()">НАЗАД</button>
+</section>
+
+<section id="game" class="panel hidden">
+ <h2>03 / ДОПУСК НА ПРЕДПРИЯТИЕ</h2>
+
+ <div class="stats">
+  <div class="stat">
+   <span class="small">ОСТАЛОСЬ ВРЕМЕНИ</span>
+   <strong id="timer">30:00</strong>
+  </div>
+  <div class="stat">
+   <span class="small">ЖИЗНИ</span>
+   <strong id="lives">❤️ ❤️ ❤️</strong>
+  </div>
+  <div class="stat">
+   <span class="small">БАЛЛЫ</span>
+   <strong id="score">0</strong>
+  </div>
+ </div>
+
+ <div class="warning">
+  <strong>МИССИЯ АКТИВИРОВАНА</strong><br>
+  Регистрация пройдена. Вы готовы к проверке знаний.
+ </div>
+
+ <p>Участник: <strong id="gameName"></strong></p>
+ <p>Группа: <strong id="gameGroup"></strong></p>
+
+ <h3>Система допуска</h3>
+ <p>Стартовая регистрация завершена успешно.</p>
+ <p class="small">
+  Следующий этап разработки — подключение шести игровых зон,
+  заданий, системы начисления баллов и автоматической проверки.
+ </p>
+
+ <button class="secondary" onclick="location.reload()">
+  ВЕРНУТЬСЯ К РЕГИСТРАЦИИ
+ </button>
+</section>
+
+<section id="finished" class="panel hidden">
+ <h2>МИССИЯ ЗАВЕРШЕНА</h2>
+ <p id="finishMessage"></p>
+ <button onclick="location.reload()">НАЧАТЬ ЗАНОВО</button>
+</section>
+
+</main>
+
+<footer>
+ ТЕРРИТОРИЯ БЕЗОПАСНОСТИ · ОБРАЗОВАТЕЛЬНЫЙ ПРОЕКТ
+</footer>
+
+<script>
+let player = "";
+let group = "";
+let lives = 3;
+let score = 0;
+let seconds = 1800;
+let timerInterval = null;
+
+function show(id){
+ document.querySelectorAll("main section")
+ .forEach(s=>s.classList.add("hidden"));
+ document.getElementById(id).classList.remove("hidden");
+}
+
+function register(){
+ player=document.getElementById("fullname").value.trim();
+ group=document.getElementById("group").value.trim();
+
+ if(!player || !group){
+  alert("Заполните ФИО и учебную группу!");
+  return;
+ }
+
+ document.getElementById("playerName").textContent=player;
+ document.getElementById("playerGroup").textContent=group;
+ show("rules");
+}
+
+function back(){
+ show("registration");
+}
+
+function startGame(){
+ document.getElementById("gameName").textContent=player;
+ document.getElementById("gameGroup").textContent=group;
+ show("game");
+ startTimer();
+}
+
+function startTimer(){
+ clearInterval(timerInterval);
+ timerInterval=setInterval(()=>{
+  seconds--;
+  let min=Math.floor(seconds/60);
+  let sec=seconds%60;
+  document.getElementById("timer").textContent=
+   String(min).padStart(2,"0")+":"+
+   String(sec).padStart(2,"0");
+
+  if(seconds<=0){
+   finish("Время прохождения истекло.");
+  }
+ },1000);
+}
+
+function finish(message){
+ clearInterval(timerInterval);
+ document.getElementById("finishMessage").textContent=
+  message+" Ваш результат: "+score+" баллов.";
+ show("finished");
+}
+</script>
+</body>
+</html>
+
