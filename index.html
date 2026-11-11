@@ -120,7 +120,7 @@ footer{text-align:center;color:#78838d;padding:25px;font-size:12px}
 <p>Группа: <b id="finalGroup"></b></p>
 <p>Время прохождения: <b id="finalTime"></b></p>
 <h3 id="finalRank" style="color:#f5b400"></h3>
-<p class="small">Результат показан локально. Для публикации общего рейтинга потребуется подключение облачной базы данных.</p>
+<p id="saveStatus" class="small" role="status" aria-live="polite">Ожидание сохранения результата…</p>
 <button style="width:100%" onclick="location.reload()">ИГРАТЬ ЕЩЁ РАЗ</button>
 </section>
 </main>
@@ -169,6 +169,7 @@ const zones=[
 "Опасность рядом","Средства защиты","Электробезопасность",
 "Пожарная тревога","Аварийная ситуация","Финальный допуск"
 ];
+
 let player="",group="",index=0,lives=3,score=0,correct=0;
 let seconds=1800,timerInterval=null,answered=false,finished=false;
 
@@ -176,6 +177,7 @@ function show(id){
  document.querySelectorAll("main section").forEach(s=>s.classList.add("hidden"));
  document.getElementById(id).classList.remove("hidden");
 }
+
 function register(){
  player=document.getElementById("fullname").value.trim();
  group=document.getElementById("group").value.trim();
@@ -184,10 +186,12 @@ function register(){
  document.getElementById("playerGroup").textContent=group;
  show("rules");
 }
+
 function startGame(){
  index=0;lives=3;score=0;correct=0;seconds=1800;finished=false;
  show("game");renderQuestion();startTimer();
 }
+
 function startTimer(){
  clearInterval(timerInterval);
  timerInterval=setInterval(()=>{
@@ -198,6 +202,7 @@ function startTimer(){
   if(seconds<=0)finish("Время прохождения истекло.");
  },1000);
 }
+
 function renderQuestion(){
  answered=false;
  const q=questions[index];
@@ -224,6 +229,7 @@ function renderQuestion(){
   box.appendChild(b);
  });
 }
+
 function checkAnswer(choice,button){
  if(answered||finished)return;
  answered=true;
@@ -250,12 +256,14 @@ function checkAnswer(choice,button){
  document.getElementById("nextBtn").textContent=
  lives===0?"ЗАВЕРШИТЬ ИГРУ":index===questions.length-1?"ЗАВЕРШИТЬ МИССИЮ":"СЛЕДУЮЩЕЕ ЗАДАНИЕ →";
 }
+
 function nextQuestion(){
  if(!answered)return;
  if(lives===0){finish("Все жизни закончились. Миссия завершена.");return}
  if(index===questions.length-1){finish("Вы прошли все контрольные зоны!");return}
  index++;renderQuestion();
 }
+
 function finish(message){
  if(finished)return;
  finished=true;clearInterval(timerInterval);
@@ -275,6 +283,54 @@ function finish(message){
  "ТРЕБУЕТСЯ ПОВТОРНАЯ ПОДГОТОВКА";
  document.getElementById("finalRank").textContent=rank;
  show("finished");
+
+ // Отправка результата в Supabase
+ const saveStatus = document.getElementById("saveStatus");
+ saveStatus.textContent = "Сохраняем результат в облачной базе данных…";
+ saveStatus.style.color = "#f5b400";
+
+ fetch("https://hewsssajyhqtdlbmeiya.supabase.co/functions/v1/submit-result", {
+   method: "POST",
+   headers: {
+     "Content-Type": "application/json",
+     "apikey": "sb_publishable_5bzfldTcFf18NIG4s3lzMg_tn5opeYp",
+     "Authorization": "Bearer sb_publishable_5bzfldTcFf18NIG4s3lzMg_tn5opeYp"
+   },
+   body: JSON.stringify({
+     full_name: player,
+     group_name: group,
+     score: score,
+     correct_answers: correct,
+     elapsed_seconds: elapsed,
+     lives_left: lives
+   })
+ })
+ .then(async response => {
+   const responseText = await response.text();
+   let data = {};
+   try {
+     data = responseText ? JSON.parse(responseText) : {};
+   } catch {
+     data = { raw_response: responseText };
+   }
+
+   if (!response.ok) {
+     const serverMessage = data.error || data.message || responseText || "Неизвестная ошибка сервера";
+     throw new Error("HTTP " + response.status + ": " + serverMessage);
+   }
+   return data;
+ })
+ .then(data => {
+   console.log("Результат сохранён в Supabase:", data);
+   saveStatus.textContent = "✓ Результат успешно сохранён в облачной базе данных.";
+   saveStatus.style.color = "#42d88b";
+ })
+ .catch(error => {
+   console.error("Ошибка сохранения результата:", error);
+   saveStatus.textContent = "Не удалось сохранить результат. " + error.message +
+     " Пожалуйста, сообщите преподавателю.";
+   saveStatus.style.color = "#ff7777";
+ });
 }
 </script>
 </body>
