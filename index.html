@@ -68,7 +68,36 @@ footer{text-align:center;color:#78838d;padding:25px;font-size:12px}
 </button>
 <p class="small">Заполните оба поля для начала игры.</p>
 </section>
+<section id="leaderboard" class="panel hidden">
+  <h2>🏆 ТАБЛИЦА ЛИДЕРОВ</h2>
+  <p class="small">ТОП-10 участников интеллектуального квеста</p>
 
+  <div id="leaderboardStatus" class="warning">
+    Загружаем результаты...
+  </div>
+
+  <div style="overflow-x:auto">
+    <table style="width:100%;border-collapse:collapse;margin-top:15px;text-align:left">
+      <thead>
+        <tr style="color:#f5b400;border-bottom:2px solid #f5b400">
+          <th style="padding:10px">Место</th>
+          <th style="padding:10px">Участник</th>
+          <th style="padding:10px">Группа</th>
+          <th style="padding:10px">Баллы</th>
+          <th style="padding:10px">Время</th>
+        </tr>
+      </thead>
+      <tbody id="leaderboardBody"></tbody>
+    </table>
+  </div>
+
+  <button onclick="openLeaderboard()" class="secondary">
+    ОБНОВИТЬ РЕЙТИНГ
+  </button>
+  <button onclick="closeLeaderboard()" style="width:100%">
+    НАЗАД
+  </button>
+</section>
 <section id="rules" class="panel hidden">
 <h2>02 / ИНСТРУКТАЖ УЧАСТНИКА</h2>
 <p>Участник: <b id="playerName"></b></p>
@@ -181,6 +210,92 @@ function show(id){
  document.getElementById(id).classList.remove("hidden");
 }
 
+let leaderboardReturn = "registration";
+
+async function openLeaderboard(){
+  const currentSection = document.querySelector("main section:not(.hidden)");
+
+  if(currentSection && currentSection.id !== "leaderboard"){
+    leaderboardReturn = currentSection.id;
+  }
+
+  show("leaderboard");
+
+  const status = document.getElementById("leaderboardStatus");
+  const tableBody = document.getElementById("leaderboardBody");
+
+  status.textContent = "Загружаем результаты...";
+  tableBody.replaceChildren();
+
+  try {
+    const response = await fetch(
+      "https://hewsssajyhqtdlbmeiya.supabase.co/functions/v1/submit-result",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "apikey": "sb_publishable_5bzfldTcFf18NIG4s3lzMg_tn5opeYp",
+          "Authorization": "Bearer sb_publishable_5bzfldTcFf18NIG4s3lzMg_tn5opeYp"
+        },
+        body: JSON.stringify({
+          action: "leaderboard"
+        })
+      }
+    );
+
+    const data = await response.json();
+
+    if(!response.ok || !data.success){
+      throw new Error(data.error || "Ошибка загрузки рейтинга");
+    }
+
+    tableBody.replaceChildren();
+
+    if(!data.leaderboard || data.leaderboard.length === 0){
+      status.textContent = "Пока нет результатов.";
+      return;
+    }
+
+    data.leaderboard.forEach(item => {
+      const row = document.createElement("tr");
+      row.style.borderBottom = "1px solid #46515b";
+
+      const values = [
+        item.place,
+        item.full_name,
+        item.group_name,
+        item.score,
+        Math.floor(item.elapsed_seconds / 60) + " мин. " +
+          (item.elapsed_seconds % 60) + " сек."
+      ];
+
+      values.forEach(value => {
+        const cell = document.createElement("td");
+        cell.style.padding = "10px";
+        cell.textContent = value;
+        row.appendChild(cell);
+      });
+
+      if(item.place <= 3){
+        row.style.color = "#ffcc35";
+        row.style.fontWeight = "bold";
+      }
+
+      tableBody.appendChild(row);
+    });
+
+    status.textContent = "Рейтинг успешно загружен. Участников: " +
+      data.leaderboard.length;
+
+  } catch(error) {
+    console.error("Ошибка загрузки рейтинга:", error);
+    status.textContent = "Не удалось загрузить рейтинг: " + error.message;
+  }
+}
+
+function closeLeaderboard(){
+  show(leaderboardReturn || "registration");
+}
 function register(){
  player=document.getElementById("fullname").value.trim();
  group=document.getElementById("group").value.trim();
