@@ -462,6 +462,33 @@ document.addEventListener("visibilitychange", function() {
     }
   }
 });
+ // Ограничение копирования, вставки и контекстного меню
+document.addEventListener("contextmenu", function(e) {
+    e.preventDefault();
+});
+
+document.addEventListener("copy", function(e) {
+    e.preventDefault();
+});
+
+document.addEventListener("cut", function(e) {
+    e.preventDefault();
+});
+
+document.addEventListener("paste", function(e) {
+    e.preventDefault();
+});
+
+document.addEventListener("dragstart", function(e) {
+    e.preventDefault();
+});
+
+document.addEventListener("keydown", function(e) {
+    if ((e.ctrlKey || e.metaKey) &&
+        ["c", "x", "v", "s", "u", "p"].includes(e.key.toLowerCase())) {
+        e.preventDefault();
+    }
+});
 </script>
 </body>
 </html>
