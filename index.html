@@ -256,7 +256,7 @@ async function openLeaderboard(){
       return;
     }
 
-    data.leaderboard.forEach(item => {
+    data.leaderboard.slice(0, 10).forEach(item => {
       const row = document.createElement("tr");
       row.style.borderBottom = "1px solid #46515b";
 
