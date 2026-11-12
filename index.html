@@ -450,6 +450,18 @@ function finish(message){
    saveStatus.style.color = "#ff7777";
  });
 }
+ // Контроль переключения вкладок
+let tabSwitchCount = 0;
+
+document.addEventListener("visibilitychange", function() {
+  if (document.hidden && !finished) {
+    tabSwitchCount++;
+
+    if (tabSwitchCount > 3) {
+      finish("Игра завершена: превышено допустимое количество переключений вкладок.");
+    }
+  }
+});
 </script>
 </body>
 </html>
